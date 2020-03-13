@@ -1,16 +1,22 @@
 const express = require('express')
+const sanitize = require('mongo-sanitize')
 const app = express()
-const { getAllUser, getUserById, addUser, editUser } = require('./mongo/model/User')
+const { findUserByName, getAllUser, getUserById, addUser, editUser } = require('./mongo/model/User')
 const port = 5000
 
 app.use(express.json())
-
+// app.post('/user/name', async (req, res) => {
+//   const { name } = req.body
+//   const user = await findUserByName(sanitize(name))
+//   res.json(user)
+// })
 app.get('/user', async (req, res) => {
   const user = await getAllUser()
   res.json(user)
 })
 app.get('/user/:id', async (req, res) => {
-  const user = await getUserById(req.params.id)
+  const id = sanitize(req.params.id)
+  const user = await getUserById(id)
   res.json(user)
 })
 
@@ -20,7 +26,10 @@ app.post('/user', async (req, res) => {
     res.send('First name or Last name is empty!')
     return
   }
-  const user = await addUser(firstName, lastName)
+
+
+
+  const user = await addUser(sanitize(firstName), sanitize(lastName))
   res.json(user)
 })
 
@@ -36,7 +45,7 @@ app.put('/user', async (req, res) => {
     return
   }
 
-  const user = await editUser(id, firstName, lastName)
+  const user = await editUser(sanitize(id), sanitize(firstName), sanitize(lastName))
   res.json(user)
 })
 

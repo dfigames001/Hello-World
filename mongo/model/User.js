@@ -27,6 +27,19 @@ const getAllUser = async () => {
   }
 }
 
+const findUserByName = async (name) => {
+  try {
+
+    const res = await User.findOne({ firstName: name })
+    if (res) {
+      return res
+    }
+    return 'no user found'
+  } catch (err) {
+    return err
+  }
+}
+
 const addUser = async (firstName, lastName) => {
   try {
     const user = new User({
@@ -55,6 +68,7 @@ const editUser = async (id, firstName, lastName) => {
 
 
 module.exports = {
+  findUserByName,
   getAllUser,
   getUserById,
   addUser,
