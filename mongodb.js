@@ -2,7 +2,7 @@ require('dotenv').config()
 const mongoose = require('mongoose')
 const CONNECTION = process.env.CONNECTION_STRING
 
-mongoose.connect(CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
 
 const db = mongoose.connection
 db.on('error', (error) => {
@@ -12,3 +12,10 @@ db.on('error', (error) => {
 db.once('open', () => {
   console.log("Connected to MongoDB!")
 })
+
+
+
+
+
+
+module.exports = mongoose
