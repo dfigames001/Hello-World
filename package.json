@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/dfigames001/Hello-World/issues"
   },
-  "homepage": "https://github.com/dfigames001/Hello-World#readme"
+  "homepage": "https://github.com/dfigames001/Hello-World#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
